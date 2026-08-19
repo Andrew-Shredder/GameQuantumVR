@@ -18,6 +18,27 @@ void UQuantumCircuitManager::AddGate(
 	Gates.Add(NewGate);
 }
 
+void UQuantumCircuitManager::DetachGate(int32 TargetQubit)
+{
+	for (int32 i = Gates.Num() - 1; i >= 0; i--)
+	{
+		if (Gates[i].TargetQubit == TargetQubit)
+		{
+			Gates.RemoveAt(i);
+
+			UE_LOG(
+				LogTemp,
+				Warning,
+				TEXT("Detached gate from Qubit %d"),
+				TargetQubit
+			);
+
+			return;
+		}
+	}
+}
+
+
 
 void UQuantumCircuitManager::ClearCircuit()
 {

@@ -55,6 +55,9 @@ public:
 	);
 
 	UFUNCTION(BlueprintCallable)
+	void DetachGate(int32 TargetQubit);
+
+	UFUNCTION(BlueprintCallable)
 	void ClearCircuit();
 
 	UFUNCTION(BlueprintCallable)
