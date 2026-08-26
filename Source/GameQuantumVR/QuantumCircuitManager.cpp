@@ -16,6 +16,8 @@ void UQuantumCircuitManager::AddGate(
 	NewGate.ControlQubit = ControlQubit;
 
 	Gates.Add(NewGate);
+
+	OnCircuitChanged.Broadcast();
 }
 
 void UQuantumCircuitManager::DetachGate(int32 TargetQubit)
@@ -25,6 +27,8 @@ void UQuantumCircuitManager::DetachGate(int32 TargetQubit)
 		if (Gates[i].TargetQubit == TargetQubit)
 		{
 			Gates.RemoveAt(i);
+
+			OnCircuitChanged.Broadcast();
 
 			UE_LOG(
 				LogTemp,
@@ -38,6 +42,19 @@ void UQuantumCircuitManager::DetachGate(int32 TargetQubit)
 	}
 }
 
+EQuantumGate UQuantumCircuitManager::GetGateAtQubit(int32 TargetQubit)
+{
+	for (const FQuantumGate& Gate : Gates)
+	{
+		if (Gate.TargetQubit == TargetQubit)
+		{
+			return Gate.GateType;
+		}
+	}
+
+	// No gate is currently on this qubit
+	return EQuantumGate::None;
+}
 
 
 void UQuantumCircuitManager::ClearCircuit()

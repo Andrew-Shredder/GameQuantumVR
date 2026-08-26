@@ -13,7 +13,8 @@ enum class EQuantumGate : uint8
 	Y,
 	Z,
 	CNOT,
-	Measure
+	Measure,
+	None
 };
 
 
@@ -39,6 +40,8 @@ struct FQuantumGate
 	}
 };
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCircuitChanged);
+
 
 UCLASS(BlueprintType, Blueprintable)
 class GAMEQUANTUMVR_API UQuantumCircuitManager : public UObject
@@ -62,6 +65,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FString GetCircuitText();
+
+	UFUNCTION(BlueprintCallable)
+	EQuantumGate GetGateAtQubit(int32 TargetQubit);
+
+	UPROPERTY(BlueprintAssignable)
+	FOnCircuitChanged OnCircuitChanged;
 
 private:
 
