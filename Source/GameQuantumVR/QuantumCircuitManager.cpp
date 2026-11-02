@@ -60,6 +60,7 @@ EQuantumGate UQuantumCircuitManager::GetGateAtQubit(int32 TargetQubit)
 void UQuantumCircuitManager::ClearCircuit()
 {
 	Gates.Empty();
+	OnCircuitChanged.Broadcast();
 }
 
 
